@@ -3,7 +3,7 @@ androidx-lifecycle = "2.11.0-beta01"
 composeMultiplatform = "1.11.0-rc01"
 haze = "2.0.0-alpha02"
 kotlin = "2.4.0-Beta2"
-kotlinxDatetime = "0.8.0"
+datetime = "0.8.0"
 material3 = "1.11.0-alpha07"
 
 [libraries]
@@ -18,7 +18,7 @@ compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-previ
 haze = { module = "dev.chrisbanes.haze:haze", version.ref = "haze" }
 haze-blur = { module = "dev.chrisbanes.haze:haze-blur", version.ref = "haze" }
 haze-blur-materials = { module = "dev.chrisbanes.haze:haze-blur-materials", version.ref = "haze" }
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }

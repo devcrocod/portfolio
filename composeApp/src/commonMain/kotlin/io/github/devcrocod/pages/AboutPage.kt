@@ -24,9 +24,10 @@ import portfolio.composeapp.generated.resources.portrait
 private data class SkillGroup(val category: String, val items: List<String>)
 
 private val SKILLS = listOf(
-    SkillGroup("Core", listOf("Kotlin", "Coroutines", "Multiplatform")),
-    SkillGroup("Tooling", listOf("Gradle", "Compiler plugins", "LLMs / agents")),
-    SkillGroup("Targets", listOf("JVM", "Native", "JS")),
+    SkillGroup("Languages", listOf("Kotlin", "Python", "Java", "C/C++")),
+    SkillGroup("Kotlin", listOf("Multiplatform", "Coroutines", "Gradle plugins")),
+    SkillGroup("Backend", listOf("Spring", "Kafka", "RabbitMQ", "Docker")),
+    SkillGroup("Data & AI / ML", listOf("SQL", "NoSQL", "Vector DB", "AI / ML")),
 )
 
 @Composable

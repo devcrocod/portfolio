@@ -8,17 +8,18 @@
   ],
   "enabledManagers": ["gradle", "github-actions"],
   "ignorePaths": ["**/build/**", "**/.gradle/**", "**/node_modules/**"],
-  "prConcurrentLimit": 5,
-  "prHourlyLimit": 2,
+  "schedule": ["before 6am on the first day of the month"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 0,
   "rangeStrategy": "pin",
   "configMigration": true,
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 6am on monday"]
+    "schedule": ["before 6am on the first day of the month"]
   },
   "packageRules": [
     {
-      "description": "Allow unstable (rc/alpha/beta/dev/milestone) versions everywhere.",
+      "description": "Allow unstable (rc/alpha/beta/dev/milestone) versions by default.",
       "matchManagers": ["gradle", "github-actions"],
       "matchPackageNames": ["*"],
       "ignoreUnstable": false,
@@ -34,14 +35,23 @@
       ]
     },
     {
-      "description": "Kotlin compiler, MPP and Compose compiler plugin.",
+      "description": "Kotlin compiler, MPP and Compose compiler plugin — stable releases only.",
       "groupName": "Kotlin",
       "matchPackageNames": [
         "org.jetbrains.kotlin.multiplatform",
         "org.jetbrains.kotlin.plugin.compose",
         "org.jetbrains.kotlin:**",
         "org.jetbrains.kotlin.{/,}**"
-      ]
+      ],
+      "ignoreUnstable": true,
+      "respectLatest": true
+    },
+    {
+      "description": "kotlinx-datetime — stable releases only.",
+      "groupName": "kotlinx-datetime",
+      "matchPackageNames": ["org.jetbrains.kotlinx:kotlinx-datetime"],
+      "ignoreUnstable": true,
+      "respectLatest": true
     },
     {
       "description": "AndroidX Lifecycle (JetBrains MPP fork).",
