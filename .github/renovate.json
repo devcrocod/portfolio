@@ -1,0 +1,63 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":timezone(Europe/Berlin)"
+  ],
+  "enabledManagers": ["gradle", "github-actions"],
+  "ignorePaths": ["**/build/**", "**/.gradle/**", "**/node_modules/**"],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "rangeStrategy": "pin",
+  "configMigration": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Allow unstable (rc/alpha/beta/dev/milestone) versions everywhere.",
+      "matchManagers": ["gradle", "github-actions"],
+      "matchPackageNames": ["*"],
+      "ignoreUnstable": false,
+      "respectLatest": false
+    },
+    {
+      "description": "Compose Multiplatform artifacts and plugin.",
+      "groupName": "Compose Multiplatform",
+      "matchPackageNames": [
+        "org.jetbrains.compose",
+        "org.jetbrains.compose.{/,}**",
+        "org.jetbrains.compose.material3:material3"
+      ]
+    },
+    {
+      "description": "Kotlin compiler, MPP and Compose compiler plugin.",
+      "groupName": "Kotlin",
+      "matchPackageNames": [
+        "org.jetbrains.kotlin.multiplatform",
+        "org.jetbrains.kotlin.plugin.compose",
+        "org.jetbrains.kotlin:**",
+        "org.jetbrains.kotlin.{/,}**"
+      ]
+    },
+    {
+      "description": "AndroidX Lifecycle (JetBrains MPP fork).",
+      "groupName": "AndroidX Lifecycle",
+      "matchPackageNames": ["org.jetbrains.androidx.lifecycle:**"]
+    },
+    {
+      "description": "Haze blur library family.",
+      "groupName": "Haze",
+      "matchPackageNames": ["dev.chrisbanes.haze:**"]
+    },
+    {
+      "description": "GitHub Actions workflow updates.",
+      "groupName": "GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["*"]
+    }
+  ]
+}
