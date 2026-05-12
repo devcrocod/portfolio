@@ -14,8 +14,8 @@ import dev.chrisbanes.haze.rememberHazeState
 import io.github.devcrocod.chrome.*
 import io.github.devcrocod.nav.PortfolioRoutes
 import io.github.devcrocod.nav.rememberRouter
-import io.github.devcrocod.pages.AboutPage
 import io.github.devcrocod.pages.HomePage
+import io.github.devcrocod.pages.InfoPage
 import io.github.devcrocod.pages.ProjectDetailPage
 import io.github.devcrocod.pages.WorkPage
 import io.github.devcrocod.theme.*
@@ -52,7 +52,7 @@ fun App() {
                                 router = router,
                                 home = { HomePage(onNavigate = it.navigate) },
                                 work = { WorkPage(onNavigate = it.navigate) },
-                                about = { AboutPage() },
+                                info = { InfoPage() },
                                 project = { r, id -> ProjectDetailPage(projectId = id, onBack = r.goBack) },
                                 footer = { Footer(onNavigate = router.navigate) },
                                 modifier = Modifier.fillMaxSize(),

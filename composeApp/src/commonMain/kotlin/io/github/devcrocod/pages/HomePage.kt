@@ -27,6 +27,7 @@ import io.github.devcrocod.components.interaction.collectIsActiveAsState
 import io.github.devcrocod.components.interaction.rememberInteractiveSource
 import io.github.devcrocod.data.HIGHLIGHTS
 import io.github.devcrocod.data.Project
+import io.github.devcrocod.data.SocialLinks
 import io.github.devcrocod.nav.Route
 import io.github.devcrocod.platform.openExternalUrl
 import io.github.devcrocod.theme.*
@@ -56,11 +57,11 @@ fun HomePage(
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             PillLink(
                 text = "github",
-                onClick = { openExternalUrl("https://github.com/devcrocod") },
+                onClick = { openExternalUrl(SocialLinks.GitHub) },
             )
             PillLink(
                 text = "linkedin",
-                onClick = { openExternalUrl("https://www.linkedin.com/in/pavelgorgulov/") },
+                onClick = { openExternalUrl(SocialLinks.LinkedIn) },
             )
         }
 

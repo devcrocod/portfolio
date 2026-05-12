@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import io.github.devcrocod.components.*
+import io.github.devcrocod.data.SocialLinks
 import io.github.devcrocod.icons.PortfolioIcons
 import io.github.devcrocod.platform.openExternalUrl
 import io.github.devcrocod.theme.*
@@ -31,7 +32,7 @@ private val SKILLS = listOf(
 )
 
 @Composable
-fun AboutPage(modifier: Modifier = Modifier) {
+fun InfoPage(modifier: Modifier = Modifier) {
     val ws = windowSize
 
     PageContainer(modifier = modifier.padding(pageVerticalPadding())) {
@@ -42,9 +43,9 @@ fun AboutPage(modifier: Modifier = Modifier) {
         Spacer(Modifier.height(blockGap()))
 
         if (ws.isCompact) {
-            AboutHeroCompact()
+            InfoHeroCompact()
         } else {
-            AboutHeroRegular()
+            InfoHeroRegular()
         }
 
         Spacer(Modifier.height(sectionGap()))
@@ -58,11 +59,11 @@ fun AboutPage(modifier: Modifier = Modifier) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             PillLink(
                 text = "github",
-                onClick = { openExternalUrl("https://github.com/devcrocod") },
+                onClick = { openExternalUrl(SocialLinks.GitHub) },
             )
             PillLink(
                 text = "linkedin",
-                onClick = { openExternalUrl("https://www.linkedin.com/in/pavelgorgulov/") },
+                onClick = { openExternalUrl(SocialLinks.LinkedIn) },
             )
         }
 
@@ -114,7 +115,7 @@ fun AboutPage(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun AboutHeroCompact() {
+private fun InfoHeroCompact() {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -122,7 +123,7 @@ private fun AboutHeroCompact() {
         Portrait(maxWidthDp = null)
         Spacer(Modifier.height(40.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
-            AboutBodyText()
+            InfoBodyText()
             Spacer(Modifier.height(blockGap()))
             DownloadResumePill()
         }
@@ -130,13 +131,13 @@ private fun AboutHeroCompact() {
 }
 
 @Composable
-private fun AboutHeroRegular() {
+private fun InfoHeroRegular() {
     Grid(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top,
     ) {
         Column(modifier = Modifier.span(compact = 4, medium = 8, expanded = 7)) {
-            AboutBodyText()
+            InfoBodyText()
             Spacer(Modifier.height(blockGap()))
             DownloadResumePill()
         }
@@ -153,7 +154,7 @@ private fun AboutHeroRegular() {
 }
 
 @Composable
-private fun AboutBodyText() {
+private fun InfoBodyText() {
     Text(
         text = "I'm Pavel Gorgulov, a Kotlin developer @JetBrains with a math background from SPbU and a passion for building the tools other developers depend on. I'm currently working on Kotlin AI, writing the libraries, frameworks, and tooling that go into building AI-based applications. Previously, I worked on Kotlin for Data Science, helping shape libraries like Multik, Kandy, and DataFrame. On the side, I keep contributing to open-source — Oremif and a handful of personal projects.",
         style = type.proseLead,
@@ -165,7 +166,7 @@ private fun AboutBodyText() {
 private fun DownloadResumePill() {
     PillLink(
         text = "download resume",
-        onClick = { /* TODO: wire resume PDF */ },
+        onClick = { /* TODO: wire to Res.drawable.resume once added */ },
         size = PillSize.Lg,
         trailing = {
             Icon(

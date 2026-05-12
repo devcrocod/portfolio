@@ -26,6 +26,8 @@ object Spacing {
     val BlockGapMobile = 24.dp
     val BlockGapTablet = 32.dp
     val BlockGapDesktop = 40.dp
+
+    val TouchTargetMin = 44.dp
 }
 
 @Composable

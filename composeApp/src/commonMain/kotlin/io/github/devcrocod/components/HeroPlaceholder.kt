@@ -12,14 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import io.github.devcrocod.data.Project
 import io.github.devcrocod.theme.ShapeCard
+import io.github.devcrocod.theme.accentGlow
 import io.github.devcrocod.theme.tokens
 import io.github.devcrocod.theme.type
 
@@ -46,23 +44,14 @@ fun HeroPlaceholder(
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .drawBehind {
-                    val r = size.minDimension * 0.55f
-                    val c = Offset(size.width * 0.72f, size.height * 0.32f)
-                    drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(
-                                project.accent.copy(alpha = 0.22f),
-                                project.accent.copy(alpha = 0.06f),
-                                Color.Transparent,
-                            ),
-                            center = c,
-                            radius = r,
-                        ),
-                        center = c,
-                        radius = r,
-                    )
-                },
+                .accentGlow(
+                    active = true,
+                    color = project.accent,
+                    innerAlpha = 0.22f,
+                    midAlpha = 0.06f,
+                    radius = { it.minDimension * 0.55f },
+                    center = { Offset(it.width * 0.72f, it.height * 0.32f) },
+                ),
         )
         if (overlay != null) {
             overlay()

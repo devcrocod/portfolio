@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -28,6 +27,7 @@ import dev.chrisbanes.haze.blur.materials.HazeMaterials
 import dev.chrisbanes.haze.hazeEffect
 import io.github.devcrocod.components.interaction.collectIsActiveAsState
 import io.github.devcrocod.components.interaction.rememberInteractiveSource
+import io.github.devcrocod.data.PrimaryNav
 import io.github.devcrocod.icons.PortfolioIcons
 import io.github.devcrocod.nav.Route
 import io.github.devcrocod.theme.*
@@ -102,13 +102,18 @@ fun Nav(
             Spacer(Modifier.weight(1f))
 
             if (showHamburger) {
-                ThemeToggle(isDark = isDark, onClick = onToggleDark, sizeDp = 44.dp)
+                ThemeToggle(isDark = isDark, onClick = onToggleDark, sizeDp = Spacing.TouchTargetMin)
                 Spacer(Modifier.size(toggleGap))
                 MenuButton(onClick = onMenuClick)
             } else {
-                NavItem(label = "work", selected = currentRoute is Route.Work, onClick = { onNavigate(Route.Work) })
-                Spacer(Modifier.size(navItemGap))
-                NavItem(label = "info", selected = currentRoute is Route.About, onClick = { onNavigate(Route.About) })
+                PrimaryNav.forEachIndexed { index, entry ->
+                    if (index > 0) Spacer(Modifier.size(navItemGap))
+                    NavItem(
+                        label = entry.label,
+                        selected = currentRoute == entry.route,
+                        onClick = { onNavigate(entry.route) },
+                    )
+                }
                 Spacer(Modifier.size(toggleGap))
                 ThemeToggle(isDark = isDark, onClick = onToggleDark, sizeDp = 36.dp)
             }
@@ -213,31 +218,16 @@ private fun ThemeToggle(isDark: Boolean, onClick: () -> Unit, sizeDp: androidx.c
         animationSpec = tween(DurHover, easing = PortfolioEasing),
         label = "theme-toggle-tint",
     )
-    val glow by animateFloatAsState(
-        targetValue = if (active) 1f else 0f,
-        animationSpec = tween(DurState, easing = PortfolioEasing),
-        label = "theme-toggle-glow",
-    )
     Box(
         modifier = Modifier
             .size(sizeDp)
-            .drawBehind {
-                if (glow <= 0f) return@drawBehind
-                val radius = size.minDimension * 0.5f
-                drawCircle(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            KotlinViolet.copy(alpha = 0.32f * glow),
-                            KotlinViolet.copy(alpha = 0.10f * glow),
-                            Color.Transparent,
-                        ),
-                        center = center,
-                        radius = radius,
-                    ),
-                    center = center,
-                    radius = radius,
-                )
-            }
+            .accentGlow(
+                active = active,
+                color = KotlinViolet,
+                innerAlpha = 0.32f,
+                midAlpha = 0.10f,
+                radius = { it.minDimension * 0.5f },
+            )
             .hoverable(interactionSource)
             .clickable(
                 interactionSource = interactionSource,
@@ -267,7 +257,7 @@ private fun MenuButton(onClick: () -> Unit) {
     )
     Box(
         modifier = Modifier
-            .size(44.dp)
+            .size(Spacing.TouchTargetMin)
             .hoverable(interactionSource)
             .clickable(
                 interactionSource = interactionSource,

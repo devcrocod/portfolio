@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import io.github.devcrocod.components.PillLink
 import io.github.devcrocod.components.interaction.collectIsActiveAsState
 import io.github.devcrocod.components.interaction.rememberInteractiveSource
+import io.github.devcrocod.data.PrimaryNav
+import io.github.devcrocod.data.SocialLinks
 import io.github.devcrocod.icons.PortfolioIcons
 import io.github.devcrocod.nav.Route
 import io.github.devcrocod.platform.openExternalUrl
@@ -92,17 +94,14 @@ fun MobileNavDrawer(
 
                 Spacer(Modifier.height(24.dp))
 
-                DrawerNavItem(
-                    label = "WORK",
-                    selected = currentRoute is Route.Work,
-                    onClick = { onNavigate(Route.Work) },
-                )
-                Spacer(Modifier.height(20.dp))
-                DrawerNavItem(
-                    label = "INFO",
-                    selected = currentRoute is Route.About,
-                    onClick = { onNavigate(Route.About) },
-                )
+                PrimaryNav.forEachIndexed { index, entry ->
+                    if (index > 0) Spacer(Modifier.height(20.dp))
+                    DrawerNavItem(
+                        label = entry.label.uppercase(),
+                        selected = currentRoute == entry.route,
+                        onClick = { onNavigate(entry.route) },
+                    )
+                }
 
                 Spacer(Modifier.height(32.dp))
                 HorizontalDivider(color = tokens.border)
@@ -111,11 +110,11 @@ fun MobileNavDrawer(
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     PillLink(
                         text = "github",
-                        onClick = { openExternalUrl("https://github.com/devcrocod") },
+                        onClick = { openExternalUrl(SocialLinks.GitHub) },
                     )
                     PillLink(
                         text = "linkedin",
-                        onClick = { openExternalUrl("https://www.linkedin.com/in/pavelgorgulov/") },
+                        onClick = { openExternalUrl(SocialLinks.LinkedIn) },
                     )
                 }
             }
@@ -165,7 +164,7 @@ private fun CloseButton(onClick: () -> Unit) {
     )
     Box(
         modifier = Modifier
-            .size(44.dp)
+            .size(Spacing.TouchTargetMin)
             .hoverable(interactionSource)
             .clickable(
                 interactionSource = interactionSource,

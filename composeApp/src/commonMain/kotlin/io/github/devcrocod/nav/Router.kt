@@ -38,7 +38,7 @@ fun PortfolioRoutes(
     router: RouterState,
     home: @Composable (RouterState) -> Unit,
     work: @Composable (RouterState) -> Unit,
-    about: @Composable (RouterState) -> Unit,
+    info: @Composable (RouterState) -> Unit,
     project: @Composable (RouterState, String) -> Unit,
     footer: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -65,7 +65,7 @@ fun PortfolioRoutes(
             when (route) {
                 is Route.Home -> home(router)
                 is Route.Work -> work(router)
-                is Route.About -> about(router)
+                is Route.Info -> info(router)
                 is Route.ProjectDetail -> project(router, route.id)
             }
             footer()

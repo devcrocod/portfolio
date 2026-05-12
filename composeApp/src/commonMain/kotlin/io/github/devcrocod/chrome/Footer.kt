@@ -22,6 +22,8 @@ import io.github.devcrocod.components.PageContainer
 import io.github.devcrocod.components.PillLink
 import io.github.devcrocod.components.interaction.collectIsActiveAsState
 import io.github.devcrocod.components.interaction.rememberInteractiveSource
+import io.github.devcrocod.data.PrimaryNav
+import io.github.devcrocod.data.SocialLinks
 import io.github.devcrocod.icons.PortfolioIcons
 import io.github.devcrocod.nav.Route
 import io.github.devcrocod.platform.openExternalUrl
@@ -60,8 +62,9 @@ private fun FooterCompact(onNavigate: (Route) -> Unit) {
             modifier = Modifier.span(compact = 2, medium = 2, expanded = 2),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            FooterNavItem("WORK") { onNavigate(Route.Work) }
-            FooterNavItem("INFO") { onNavigate(Route.About) }
+            for (entry in PrimaryNav) {
+                FooterNavItem(entry.label.uppercase()) { onNavigate(entry.route) }
+            }
         }
         Column(
             modifier = Modifier.span(compact = 2, medium = 2, expanded = 2),
@@ -69,11 +72,11 @@ private fun FooterCompact(onNavigate: (Route) -> Unit) {
         ) {
             PillLink(
                 text = "github",
-                onClick = { openExternalUrl("https://github.com/devcrocod") },
+                onClick = { openExternalUrl(SocialLinks.GitHub) },
             )
             PillLink(
                 text = "linkedin",
-                onClick = { openExternalUrl("https://www.linkedin.com/in/pavelgorgulov/") },
+                onClick = { openExternalUrl(SocialLinks.LinkedIn) },
             )
         }
     }
@@ -111,8 +114,9 @@ private fun FooterRegular(onNavigate: (Route) -> Unit) {
             modifier = Modifier.span(compact = 4, medium = 4, expanded = 3),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            FooterNavItem("WORK") { onNavigate(Route.Work) }
-            FooterNavItem("INFO") { onNavigate(Route.About) }
+            for (entry in PrimaryNav) {
+                FooterNavItem(entry.label.uppercase()) { onNavigate(entry.route) }
+            }
         }
         Column(
             modifier = Modifier.span(compact = 4, medium = 4, expanded = 3),
@@ -120,11 +124,11 @@ private fun FooterRegular(onNavigate: (Route) -> Unit) {
         ) {
             PillLink(
                 text = "github",
-                onClick = { openExternalUrl("https://github.com/devcrocod") },
+                onClick = { openExternalUrl(SocialLinks.GitHub) },
             )
             PillLink(
                 text = "linkedin",
-                onClick = { openExternalUrl("https://www.linkedin.com/in/pavelgorgulov/") },
+                onClick = { openExternalUrl(SocialLinks.LinkedIn) },
             )
         }
     }

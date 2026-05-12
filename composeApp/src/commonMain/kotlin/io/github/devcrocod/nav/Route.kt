@@ -11,7 +11,7 @@ sealed interface Route {
         override val path: String = "/work"
     }
 
-    data object About : Route {
+    data object Info : Route {
         override val path: String = "/info"
     }
 
@@ -25,7 +25,7 @@ fun parsePath(rawPath: String): Route {
     return when {
         path == "/" -> Route.Home
         path == "/work" -> Route.Work
-        path == "/info" || path == "/about" -> Route.About
+        path == "/info" -> Route.Info
         path.startsWith("/project/") -> {
             val id = path.removePrefix("/project/").trimEnd('/')
             if (id.isNotEmpty()) Route.ProjectDetail(id) else Route.Home

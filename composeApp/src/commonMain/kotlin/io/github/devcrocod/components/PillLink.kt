@@ -1,7 +1,6 @@
 package io.github.devcrocod.components
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,8 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -71,11 +68,6 @@ fun PillLink(
         animationSpec = tween(DurState, easing = PortfolioEasing),
         label = "pill-bg",
     )
-    val glow by animateFloatAsState(
-        targetValue = if (active) 1f else 0f,
-        animationSpec = tween(DurState, easing = PortfolioEasing),
-        label = "pill-glow",
-    )
 
     val plexMono = plexMonoFamily()
     val labelStyle = TextStyle(
@@ -90,23 +82,7 @@ fun PillLink(
         Row(
             modifier = modifier
                 // Intentional override of "No glow" rule for hero CTAs — see redesign brief.
-                .drawBehind {
-                    if (glow <= 0f) return@drawBehind
-                    val r = this.size.maxDimension * 0.6f
-                    drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(
-                                accentColor.copy(alpha = 0.16f * glow),
-                                accentColor.copy(alpha = 0.05f * glow),
-                                Color.Transparent,
-                            ),
-                            center = center,
-                            radius = r,
-                        ),
-                        center = center,
-                        radius = r,
-                    )
-                }
+                .accentGlow(active = active, color = accentColor)
                 .clip(ShapePill)
                 .background(color = bgColor, shape = ShapePill)
                 .border(width = 1.dp, color = borderColor, shape = ShapePill)
