@@ -48,16 +48,11 @@ jobs:
       - name: Build Wasm browser distribution
         run: ./gradlew :composeApp:wasmJsBrowserDistribution --no-daemon --stacktrace
 
-      - name: Patch base href for GitHub Pages
+      - name: Add SPA 404 fallback
         run: |
           set -euo pipefail
-          REPO_NAME="${GITHUB_REPOSITORY##*/}"
           DIST_DIR="composeApp/build/dist/wasmJs/productionExecutable"
-          echo "Patching <base href> in ${DIST_DIR}/index.html to /${REPO_NAME}/"
-          sed -i "s|<base href=\"/\">|<base href=\"/${REPO_NAME}/\">|" "${DIST_DIR}/index.html"
           cp "${DIST_DIR}/index.html" "${DIST_DIR}/404.html"
-          echo "Result:"
-          grep -n "<base" "${DIST_DIR}/index.html" "${DIST_DIR}/404.html"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
