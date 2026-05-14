@@ -166,7 +166,7 @@ private fun InfoBodyText() {
 private fun DownloadResumePill() {
     PillLink(
         text = "download resume",
-        onClick = { /* TODO: wire to Res.drawable.resume once added */ },
+        onClick = { openExternalUrl("PG_resume.pdf") },
         size = PillSize.Lg,
         trailing = {
             Icon(
