@@ -1,6 +1,7 @@
 package io.github.devcrocod.data
 
 import androidx.compose.ui.graphics.Color
+import io.github.devcrocod.theme.KotlinOrange
 
 enum class ProjectStatus { Stable, Experimental, Archived, Maintained, Active }
 
@@ -263,6 +264,30 @@ val doc = parser.parse(bytes)
 val name = doc["user"]["name"].asString()""",
         tags = listOf("Kotlin", "JSON", "Native"),
         num = "10",
+    ),
+    Project(
+        id = "kotlin-docs-kit",
+        repo = "devcrocod/kotlin-docs-kit",
+        href = "https://github.com/devcrocod/kotlin-docs-kit",
+        year = "2026",
+        title = "kotlin-docs-kit",
+        kind = "Docs theme",
+        role = ProjectRole.Author,
+        status = ProjectStatus.Experimental,
+        desc = "A Kotlin-styled documentation kit for Docusaurus and Hugo — shared design tokens and content components (callouts, code tabs, cards, hero) behind one CSS-variable contract.",
+        overview = """kotlin-docs-kit packages a Kotlin-styled design system — design tokens plus content components like callouts, code tabs, cards, hero sections, and badges — into ready-to-use themes for two documentation engines. The same look and feel is available whether you author in Docusaurus (MDX/React) through the `@ktdocs/docusaurus-preset` package or in Hugo (shortcodes) through a Hugo module, with a single CSS-variable contract underneath.
+
+Design tokens — colors, spacing, typography — are defined once and compiled into plain CSS variables, so both engines stay visually in sync from a single source. The repo also ships starter templates for each engine and a documentation site built with the kit itself. Pre-alpha — APIs and package names will change before the first stable release.""",
+        accent = KotlinOrange,
+        snippet = """// devcrocod/kotlin-docs-kit
+// docusaurus.config.js
+presets: [
+  ["@ktdocs/docusaurus-preset", {
+    docs: { sidebarPath: "./sidebars.ts" },
+  }],
+]""",
+        tags = listOf("Kotlin", "Docs", "Docusaurus", "Hugo"),
+        num = "11",
     ),
 )
 
